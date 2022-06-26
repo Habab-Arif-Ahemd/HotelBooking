@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useCallback } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import {useNavigate} from 'react-router-dom';
 import Modal from "react-bootstrap/Modal";
 import background from "../../Assets/background.jpg";
 import "./Home.css";
@@ -7,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Country from "../../shared/Country"
+import Country from "../../shared/Country";
 export default function Home() { 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -17,7 +18,6 @@ export default function Home() {
   const [childer,setChildern]=useState(0);
         //the room conter       
         const increaseRoom =()=>{
-          console.log("ddd",Country)
           if(roomCounter<8)
           setroomCounter(count=>count+1)
         }
@@ -52,7 +52,9 @@ export default function Home() {
           AsetAdultes(conut=>conut-1)
         }
 
-
+        const navigate = useNavigate();
+        const handleOnClick = useCallback(() => navigate('/Hotels', {replace: true}), [navigate]);
+      
 
 
         
@@ -105,7 +107,7 @@ export default function Home() {
             </Col>
     
             <Col xl={8}>
-              <Button className="al-button" type="submit">
+              <Button className="al-button" onClick={handleOnClick} type="submit">
                 Submit
               </Button>
             </Col>
